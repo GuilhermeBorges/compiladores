@@ -1,0 +1,40 @@
+Subconjunto da ling. pascal que aceite:
+
+a) declarações de inteiros e de cadeias de caracteres. Ex.
+
+var a, b, ci, vet[ 10 ]: integer;
+
+var nome[30], sobrenome[30];
+
+b) comandos de atribuição com expressões envolvendo +, -, *, /, parentizadas ou não, com constantes numéricas inteiras. Ex.
+
+x = a + b * ( c - 2 ) / (( b - 4 ) * 3);
+
+c) comando de decisão simples tipo if-then-else. Ex.
+
+if ( a + b > c - d ) then
+	x = 1;
+	y = 2;
+else
+	x = 2;
+	y = 3;
+endif
+
+OBS. a parte else não é obrigatória.
+
+d) comando de repetição tipo for. Ex.
+
+for i = 1 to 10 step 2 do
+	soma = soma + vet[ i ];
+endfor
+
+OBS. o passo (step) default deve ser 1.
+
+e) comando de entrada e saída tipo read/write. Ex.
+
+read a, b, nome, sobrenome;
+
+write "a = ", a, "b = ", b, "nome = ", nome, "sobrenome = ", sobrenome;
+
+OBS. writeln deve fazer a mesma coisa que write, gerando uma quela de linha ao final da impressão.
+
