@@ -4,3 +4,7 @@ palavra1 palavra2 step
 endif
  if
 If
+123 234
+ 3 
+4
+5a

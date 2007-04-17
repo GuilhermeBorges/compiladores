@@ -1,4 +1,4 @@
-package compilador.util.token;
+package compilador.util;
 
 import java.util.HashSet;
 import java.util.Set;
