@@ -36,5 +36,5 @@ read a, b, nome, sobrenome;
 
 write "a = ", a, "b = ", b, "nome = ", nome, "sobrenome = ", sobrenome;
 
-OBS. writeln deve fazer a mesma coisa que write, gerando uma quela de linha ao final da impressão.
+OBS. writeln deve fazer a mesma coisa que write, gerando uma quebra de linha ao final da impressão.
 

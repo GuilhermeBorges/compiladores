@@ -1,0 +1,6 @@
+for
+da
+palavra1 palavra2 step
+endif
+ if
+If
