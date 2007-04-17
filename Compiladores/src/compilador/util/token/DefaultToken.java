@@ -13,15 +13,18 @@ public class DefaultToken implements IToken {
 	
 	protected int linha;
 
+	private boolean isCorrect;
+
 	/**
 	 * @param tipo 
 	 * @param caracteres
 	 * @param linha
 	 */
-	public DefaultToken(Types tipo, String caracteres, int linha) {
+	public DefaultToken(Types tipo, String caracteres, int linha, boolean isCorrect) {
 		this.tipo = tipo;
 		this.caracteres = caracteres;
 		this.linha = linha;
+		this.isCorrect = isCorrect;
 	}
 	
 	/* (non-Javadoc)
@@ -48,6 +51,10 @@ public class DefaultToken implements IToken {
 	@Override
 	public String toString() {
 		return this.caracteres+", linha: "+this.linha;
+	}
+
+	public boolean isCorrect() {
+		return isCorrect;
 	}
 
 }

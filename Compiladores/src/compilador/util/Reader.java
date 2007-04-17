@@ -32,11 +32,10 @@ public class Reader {
 	 * Retorna o proximo Char válido. (qualquer char excluindo espaço em branco)
 	 * @return
 	 */
-	public char getNextNotSpaceChar() {
-		
+	public char getNextNotWhitespaceChar() {
 		do{
 			caracter = getNextChar();
-		}while(Character.isSpaceChar(caracter));
+		}while(Character.isWhitespace(caracter));
 		return (char) caracter;
 
 	}

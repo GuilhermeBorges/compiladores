@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import compilador.util.PalavrasReservadasUtil;
 import compilador.util.Reader;
+import compilador.util.Util;
 import compilador.util.token.IToken;
-import compilador.util.token.Identificador;
-import compilador.util.token.PalavraReservada;
-import compilador.util.token.PalavrasReservadasUtil;
+import compilador.util.token.IdentificadorToken;
+import compilador.util.token.NumeroToken;
+import compilador.util.token.PalavraReservadaToken;
 
 public class AnalisadorLexico {
 
@@ -22,14 +24,13 @@ public class AnalisadorLexico {
 	
 	public IToken getNextToken() {
 		
-		char caracter = reader.getNextNotSpaceChar();
-		
+		char caracter = reader.getNextNotWhitespaceChar();
 		IToken nextToken = null;
 		try {
 			if ( Character.isLetter(caracter) ) {
-				nextToken = getIdentifier(caracter);
-//			} else if ( Character.isDigit(caracter) ) {
-//				nextToken = getNumber(caracter);
+				nextToken = getIdentificador(caracter);
+			} else if ( Character.isDigit(caracter) ) {
+				nextToken = getNumero(caracter);
 //			} else if ( isQuote(caracter) ) {
 //				nextToken = getLiteral();
 //			} else if ( isOperator(caracter) ) {
@@ -46,23 +47,33 @@ public class AnalisadorLexico {
 		return nextToken;
 	}
 
-	private IToken getIdentifier(char firstCharacter) throws IOException {
+	private IToken getNumero(char firstCaracter) {
 		StringBuffer token = new StringBuffer();
-		token.append(firstCharacter);
-		char caracter = Character.UNASSIGNED;
-		do{
-			caracter = (char)reader.getNextChar();
-			if(Character.isWhitespace(caracter) || caracter == Reader.EOF || caracter == Character.LINE_SEPARATOR) {
-				break;
-			}
+		token.append(firstCaracter);
+		char caracter = reader.getNextChar();
+		while(!Character.isWhitespace(caracter) && (caracter != Reader.EOF)) {
 			token.append(caracter);
-		}while(Character.isLetterOrDigit(caracter));
+			caracter = reader.getNextChar();
+		}
+		//FIXME: Correcao do numero vai ser feita aqui se ele for inválido??
+		return new NumeroToken(token.toString(), reader.getLinhaAtual(), Util.isInteiroValido(token.toString()));
+	}
+	
+	private IToken getIdentificador(char firstCaracter) throws IOException {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(firstCaracter);
+		char caracter = reader.getNextChar();
+		
+		while(Character.isLetterOrDigit(caracter)){
+			buffer.append(caracter);
+			caracter = reader.getNextChar();
+		};
 		
 		IToken tokenIdent;
-		if (palavrasReservadasUtil.isPalavraReservada(token.toString())) {
-			tokenIdent = new PalavraReservada(token.toString(), reader.getLinhaAtual());
+		if (palavrasReservadasUtil.isPalavraReservada(buffer.toString())) {
+			tokenIdent = new PalavraReservadaToken(buffer.toString(), reader.getLinhaAtual());
 		} else {
-			tokenIdent = new Identificador(token.toString(), reader.getLinhaAtual());
+			tokenIdent = new IdentificadorToken(buffer.toString(), reader.getLinhaAtual());
 		}
 		return tokenIdent;
 	}
